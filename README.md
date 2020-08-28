@@ -13,9 +13,7 @@
 | first_name       | string  | null: false |
 | family_name_kana | string  | null: false |
 | first_name_kana  | string  | null: false |
-| birth_year       | integer | null: false |
-| birth_month      | integer | null: false |
-| birth_day        | integer | null: false |
+| birthday         | date    | null: false |
 
 ### Association
 
@@ -25,34 +23,30 @@
 
 ## items テーブル
 
-| Column           | Type    | Options     |
-| -----------------| ------- | ----------- |
-| item_image       | string  | null: false |
-| item_name        | string  | null: false |
-| item_description | string  | null: false |
-| category         | string  | null: false |
-| item_condition   | string  | null: false |
-| shipping_burden  | string  | null: false |
-| shipping_region  | string  | null: false |
-| shipping_day     | string  | null: false |
-| price            | integer | null: false |
-| user_id          | integer | null: false |
+| Column           | Type    | Options                        |
+| -----------------| ------- | -------------------------------|
+| image            | text    | null: false                    |
+| name             | text    | null: false                    |
+| description      | text    | null: false                    |
+| category         | integer | null: false                    |
+| condition        | string  | null: false                    |
+| shipping_burden  | string  | null: false                    |
+| shipping_region  | string  | null: false                    |
+| shipping_day     | string  | null: false                    |
+| price            | integer | null: false                    |
+| user_id          | integer | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one :purchases
+- has_one :purchase
 
 ## purchases テーブル
 
-| Column           | Type    | Options     |
-| -----------------| ------- | ----------- |
-| card_number      | integer | null: false |
-| expiration_year  | integer | null: false |
-| expiration_month | integer | null: false |
-| security_code    | integer | null: false |
-| user_id          | integer | null: false |
-| item_id          | integer | null: false |
+| Column  | Type    | Options                        |
+| --------| ------- | ------------------------------ |
+| user_id | integer | null: false, foreign_key: true |
+| item_id | integer | null: false, foreign_key: true |
 
 ### Association
 
@@ -62,20 +56,18 @@
 
 ## sending_destination テーブル
 
-| Column        | Type    | Options     |
-| --------------| ------- | ----------- |
-| post_code     | integer | null: false |
-| prefecture    | string  | null: false |
-| city          | string  | null: false |
-| house_number  | integer | null: false |
-| building_name | string  | null: false |
-| phone_number  | integer | null: false |
-| user_id       | integer | null: false |
-| purchase_id   | integer | null: false |
+| Column        | Type    | Options                        |
+| --------------| ------- | ------------------------------ |
+| post_code     | string  | null: false                    |
+| city          | string  | null: false                    |
+| house_number  | integer | null: false                    |
+| building_name | string  |                                |
+| phone_number  | string  | null: false                    |
+| purchase_id   | integer | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :purchases
+- belongs_to :purchase
 
 
 
