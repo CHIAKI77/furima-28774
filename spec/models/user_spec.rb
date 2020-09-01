@@ -31,6 +31,12 @@ RSpec.describe User, type: :model do
           @user.valid?
           expect(@user.errors.full_messages).to include("Email can't be blank")
         end
+
+        it "emailに＠含まれていないと登録できないこと" do
+          @user.email = "test1gamil.com"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Email is invalid")
+        end
     
         it "重複したemailが存在する場合登録できないこと" do
           @user.save
@@ -81,6 +87,30 @@ RSpec.describe User, type: :model do
           @user.first_name_kana = ""
           @user.valid?
           expect(@user.errors.full_messages).to include("First name kana can't be blank")
+        end
+
+        it "family_nameが全角（漢字・ひらがな・カタカナ）以外では登録できないこと" do
+          @user.family_name = "yamada"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Family name is invalid")
+        end
+    
+        it "first_nameが全角（漢字・ひらがな・カタカナ）以外では登録できないこと" do
+          @user.first_name = "taro"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("First name is invalid")
+        end
+    
+        it "family_name_kanaが全角（カタカナ）以外では登録できないこと" do
+          @user.family_name_kana = "やまだ"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("Family name kana is invalid")
+        end
+    
+        it "first_name_kanaが全角（カタカナ）以外では登録できないこと" do
+          @user.first_name_kana = "たろう"
+          @user.valid?
+          expect(@user.errors.full_messages).to include("First name kana is invalid")
         end
     
         it "birthdayが空では登録できないこと" do
