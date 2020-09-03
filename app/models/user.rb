@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
+  # アソシエーション
+  has_many :items
+
   # ユーザー新規登録時のバリデーション
   validates :nickname, presence: true
   # validates :email, presence: true, uniqueness: true, format: { with: /\A[\w+-.]+@[a-z\d-.]+.[a-z]+\z/i}
