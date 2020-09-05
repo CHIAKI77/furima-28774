@@ -19,5 +19,5 @@ class Item < ApplicationRecord
   validates :shipping_burden_id, numericality: { other_than: 1 }
   validates :shipping_region_id, numericality: { other_than: 1 }
   validates :shipping_day_id,    numericality: { other_than: 1 }
-  validates :price,              presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+  validates :price,              presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }, format: { with: /\A[0-9]+\z/ }
 end
