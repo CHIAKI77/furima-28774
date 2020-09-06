@@ -4,7 +4,7 @@ RSpec.describe Item, type: :model do
   describe '#create' do
     before do
       @item = FactoryBot.build(:item)
-      @item.image = fixture_file_upload("#{::Rails.root}/spec/fixtures/testimage.jpeg", "image/jpeg")
+      @item.image = fixture_file_upload("#{::Rails.root}/spec/fixtures/testimage.jpeg", 'image/jpeg')
     end
     describe 'ユーザー新規登録' do
       context '商品出品登録がうまくいかないとき' do
@@ -29,31 +29,31 @@ RSpec.describe Item, type: :model do
         it 'category_idを選択していないときでは登録できないこと' do
           @item.category_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Category must be other than 1")
+          expect(@item.errors.full_messages).to include('Category must be other than 1')
         end
 
         it 'condition_idを選択していないときでは登録できないこと' do
           @item.condition_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Condition must be other than 1")
+          expect(@item.errors.full_messages).to include('Condition must be other than 1')
         end
 
         it 'shipping_burden_idを選択していないときでは登録できないこと' do
           @item.shipping_burden_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Shipping burden must be other than 1")
+          expect(@item.errors.full_messages).to include('Shipping burden must be other than 1')
         end
 
         it 'shipping_region_idを選択していないときでは登録できないこと' do
           @item.shipping_region_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Shipping region must be other than 1")
+          expect(@item.errors.full_messages).to include('Shipping region must be other than 1')
         end
 
         it 'shipping_day_idを選択していないときでは登録できないこと' do
           @item.shipping_day_id = 1
           @item.valid?
-          expect(@item.errors.full_messages).to include("Shipping day must be other than 1")
+          expect(@item.errors.full_messages).to include('Shipping day must be other than 1')
         end
 
         it 'priceが空では登録できないこと' do
@@ -77,7 +77,7 @@ RSpec.describe Item, type: :model do
         it 'priceが空では半角数字以外では登録できないこと' do
           @item.price = '３００'
           @item.valid?
-          expect(@item.errors.full_messages).to include("Price is not a number")
+          expect(@item.errors.full_messages).to include('Price is not a number')
         end
       end
     end
