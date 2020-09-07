@@ -3,6 +3,5 @@ Rails.application.routes.draw do
   root to: "posts#index"
   get 'posts', to: 'posts#index'
   resources :items, only: [:new, :index, :create, :show, :edit, :update]
-  get 'items', to: 'items#new'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
