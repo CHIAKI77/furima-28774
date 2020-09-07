@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :move_to_index, except: [:index, :show]
+  before_action :set_item, only: [:edit, :update]
 
   def index
     @items = Item.all
@@ -23,6 +24,17 @@ class ItemsController < ApplicationController
     @items = Item.find(params[:id])
   end
 
+  def edit
+  end
+
+  def update
+    if @items.update(item_params)
+      redirect_to item_path(@items)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def item_params
@@ -31,5 +43,9 @@ class ItemsController < ApplicationController
 
   def move_to_index
     redirect_to action: :index unless user_signed_in?
+  end
+
+  def set_item
+    @items = @items = Item.find(params[:id])
   end
 end
