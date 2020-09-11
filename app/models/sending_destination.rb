@@ -1,6 +1,6 @@
 class SendingDestination < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to_active_hash :city
+  belongs_to_active_hash :prefecture
 
   # アソシエーション
   belongs_to :purchase
