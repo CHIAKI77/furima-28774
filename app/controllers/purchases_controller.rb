@@ -1,4 +1,7 @@
 class PurchasesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :seller_redirect
+
   def index
     @item = Item.find(params[:item_id])
     @purchase = PurchaseSendingdestination.new
@@ -9,6 +12,7 @@ class PurchasesController < ApplicationController
     @purchase = PurchaseSendingdestination.new(order_params)
     # 保存できなかった場合、createアクションに戻って来た時にitemの情報がないため定義しておく必要がある。
     @item = Item.find(params[:item_id])
+
     if @purchase.valid?
       pay_item
       # binding.pry
@@ -33,6 +37,14 @@ class PurchasesController < ApplicationController
       card: order_params[:token],    # カードトークン
       currency:'jpy'                 # 通貨の種類(日本円)
     )
+  end
+
+  def seller_redirect
+    #  ログインユーザーと出品者が同一だった場合,トップページに戻る。
+    @item = Item.find(params[:item_id])
+    if current_user.id == @item.user.id
+      redirect_to root_path
+    end
   end
 
 end
