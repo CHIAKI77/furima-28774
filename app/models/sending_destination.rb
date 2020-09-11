@@ -5,12 +5,7 @@ class SendingDestination < ApplicationRecord
   # アソシエーション
   belongs_to :purchase
 
-  # バリデーション
-  validates :post_code,     presence: true, format: { with: /\A\d{3}[-]\d{4}\z/ }
-  validates :prefecture,    presence: true
-  validates :city,          numericality: { other_than: 1 }
-  validates :house_number,  presence: true
-  validates :building_name, presence: true
-  validates :phone_number,  presence: true
+  # バリデーションはformオブジェクトの導入によりpurchase_sendingdestination.rbに移行記述した
+
 
 end

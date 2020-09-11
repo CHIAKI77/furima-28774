@@ -1,31 +1,28 @@
 class PurchasesController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
-  end
-
-  def new
-    @item = Item.new
+    @purchase = PurchaseSendingdestination.new
+    # @user = User.new
   end
 
   def create
-    @order = Purchase.new(order_params)
-    if @order.valid?
+    @purchase = PurchaseSendingdestination.new(order_params)
+    # 保存できなかった場合、createアクションに戻って来た時にitemの情報がないため定義しておく必要がある。
+    @item = Item.find(params[:item_id])
+    if @purchase.valid?
       pay_item
-      @order.save
+      @purchase.save
       return redirect_to root_path
     else
-      render 'index'
+      # binding.pry
+      render :index
     end
   end
 
   private
 
-  def purchase_params
-    params.require(:sending_destination).permit(:post_code, :prefecture, :nickname)
-  end
-
   def order_params
-    params.permit(:price, :token)
+    params.permit(:price, :token, :post_code, :prefecture, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params.permit[:item_id])
   end
 
   def pay_item
