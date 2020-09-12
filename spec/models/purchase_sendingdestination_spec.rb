@@ -39,6 +39,10 @@ RSpec.describe PurchaseSendingdestination, type: :model do
       @purchase_sendingdestination.valid?
       expect(@purchase_sendingdestination.errors.full_messages).to include("House number can't be blank")
     end
+    it 'building_nameは空でも保存できること' do
+      @purchase_sendingdestination.building_name = nil
+      expect(@purchase_sendingdestination).to be_valid
+    end
     it 'phone_numberが空だと保存できないこと' do
       @purchase_sendingdestination.phone_number = nil
       @purchase_sendingdestination.valid?
