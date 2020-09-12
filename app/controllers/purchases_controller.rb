@@ -5,7 +5,6 @@ class PurchasesController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @purchase = PurchaseSendingdestination.new
-    # @user = User.new
   end
 
   def create
@@ -15,11 +14,9 @@ class PurchasesController < ApplicationController
 
     if @purchase.valid?
       pay_item
-      # binding.pry
       @purchase.save
       redirect_to root_path
     else
-      # binding.pry
       render :index
     end
   end

@@ -8,14 +8,9 @@ class PurchaseSendingdestination
   validates :prefecture_id, numericality: { other_than: 1 }
   validates :city,          presence: true
   validates :house_number,  presence: true
-  # validates :building_name, presence: true
   validates :phone_number,  presence: true, length: { maximum: 11 }, format: { with: /\A[0-9]+\z/ }
 
   def save
-    # ユーザーの情報を保存し、「user」という変数に入れている
-    # user = User.create(name: name, name_reading: name_reading, nickname: nickname)
-    # 住所の情報を保存
-    # binding.pry
     purchase = Purchase.create(item_id: item_id, user_id: user_id)
     SendingDestination.create(post_code: post_code, prefecture_id: prefecture_id, city: city, house_number: house_number, building_name: building_name, phone_number: phone_number, purchase_id: purchase.id)
   end
