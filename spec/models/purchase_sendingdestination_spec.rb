@@ -57,6 +57,11 @@ RSpec.describe PurchaseSendingdestination, type: :model do
         @purchase_sendingdestination.valid?
         expect(@purchase_sendingdestination.errors.full_messages).to include('Phone number is invalid')
       end
+      it 'phone_numberが11桁以上だと保存できないこと' do
+        @purchase_sendingdestination.phone_number = '090123456789'
+        @purchase_sendingdestination.valid?
+        expect(@purchase_sendingdestination.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
+      end
     end
   end
 end
