@@ -6,6 +6,4 @@ class SendingDestination < ApplicationRecord
   belongs_to :purchase
 
   # バリデーションはformオブジェクトの導入によりpurchase_sendingdestination.rbに移行記述した
-
-
 end
