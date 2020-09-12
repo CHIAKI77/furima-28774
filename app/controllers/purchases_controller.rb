@@ -1,17 +1,14 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
   before_action :seller_redirect
-
+  before_action :set_purchase ,only: [:index, :create]
   def index
-    @item = Item.find(params[:item_id])
     @purchase = PurchaseSendingdestination.new
   end
 
   def create
     @purchase = PurchaseSendingdestination.new(order_params)
     # 保存できなかった場合、createアクションに戻って来た時にitemの情報がないため定義しておく必要がある。
-    @item = Item.find(params[:item_id])
-
     if @purchase.valid?
       pay_item
       @purchase.save
@@ -44,5 +41,9 @@ class PurchasesController < ApplicationController
     elsif !@item.purchase.nil?
       redirect_to root_path
     end
+  end
+
+  def set_purchase
+    @item = Item.find(params[:item_id])
   end
 end
